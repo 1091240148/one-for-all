@@ -1,7 +1,7 @@
 /*
  * @Author: zxh
  * @Date: 2021-06-01 15:15:50
- * @LastEditTime: 2021-06-01 17:50:32
+ * @LastEditTime: 2021-06-07 15:57:00
  * @LastEditors: zxh
  * @Description:
  */
@@ -105,6 +105,19 @@ react 16架构：
         作为架构来说，之前React15的Reconciler采用递归的方式执行，数据保存在递归调用栈中，所以被称为stack Reconciler。React16的Reconciler基于Fiber节点实现，被称为Fiber Reconciler。
         作为静态的数据结构来说，每个Fiber节点对应一个React element，保存了该组件的类型（函数组件/类组件/原生组件...）、对应的DOM节点等信息。
         作为动态的工作单元来说，每个Fiber节点保存了本次更新中该组件改变的状态、要执行的工作（需要被删除/被插入页面中/被更新...）
+
+
+    fiber可以构建fiber节点对应DOM节点，多个fiber节点组成fiber树，对应页面的DOM树。
+    当每次更新的时候，我们会更新fiber树，但是如果当要更新的量很大的时候，我们在更新树时可能会出现卡顿等问题，（自己想嘛，一个大量数据在遍历的时候能不照成卡顿么。）
+    所以fiber采用了双fiber树的操作，也就是“双缓存”。一个是currentFiber用于显示，一个是workInProgressFiber用于更新操作。
+    当workInProgressFiber更新完成后，react应用的根节点通过current指针切换，指向到当前的workInProgressFiber，当前workInProgressFiber就变成了currentFiber；
+
+
+
+
+
+
+
 
 
 
