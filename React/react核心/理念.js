@@ -1,7 +1,7 @@
 /*
  * @Author: zxh
  * @Date: 2021-06-01 15:15:50
- * @LastEditTime: 2021-06-07 15:57:00
+ * @LastEditTime: 2021-06-08 10:18:43
  * @LastEditors: zxh
  * @Description:
  */
@@ -110,8 +110,8 @@ react 16架构：
     fiber可以构建fiber节点对应DOM节点，多个fiber节点组成fiber树，对应页面的DOM树。
     当每次更新的时候，我们会更新fiber树，但是如果当要更新的量很大的时候，我们在更新树时可能会出现卡顿等问题，（自己想嘛，一个大量数据在遍历的时候能不照成卡顿么。）
     所以fiber采用了双fiber树的操作，也就是“双缓存”。一个是currentFiber用于显示，一个是workInProgressFiber用于更新操作。
-    当workInProgressFiber更新完成后，react应用的根节点通过current指针切换，指向到当前的workInProgressFiber，当前workInProgressFiber就变成了currentFiber；
-
+    当workInProgressFiber更新完成后，react应用的根节点通过current指针切换，指向到当前的workInProgressFiber，当前workInProgressFiber就变成了currentFiber然后产生
+    页面更新
 
 
 
