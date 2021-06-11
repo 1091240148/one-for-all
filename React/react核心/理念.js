@@ -1,7 +1,7 @@
 /*
  * @Author: zxh
  * @Date: 2021-06-01 15:15:50
- * @LastEditTime: 2021-06-08 10:18:43
+ * @LastEditTime: 2021-06-11 17:33:18
  * @LastEditors: zxh
  * @Description:
  */
@@ -110,7 +110,7 @@ react 16架构：
     fiber可以构建fiber节点对应DOM节点，多个fiber节点组成fiber树，对应页面的DOM树。
     当每次更新的时候，我们会更新fiber树，但是如果当要更新的量很大的时候，我们在更新树时可能会出现卡顿等问题，（自己想嘛，一个大量数据在遍历的时候能不照成卡顿么。）
     所以fiber采用了双fiber树的操作，也就是“双缓存”。一个是currentFiber用于显示，一个是workInProgressFiber用于更新操作。
-    当workInProgressFiber更新完成后，react应用的根节点通过current指针切换，指向到当前的workInProgressFiber，当前workInProgressFiber就变成了currentFiber然后产生
+    当workInProgressFiber更新完成后，react应用的根节点通过current指针切换，指向到当前的workInProgressFiber，当前workInProgressFiber就变成了currentFiber接着
     页面更新
 
 
@@ -127,6 +127,49 @@ react 16架构：
 
 
 
+
+
+// Diff:
+/*
+
+    即使在最前沿的算法中，前后两个数完全对比的复杂度在O(n3);为了降低复杂度，预设了三个限制：
+        ·只对同级元素进行Diff。如果一个DOM节点在前后两次更新中跨越了层级，那么React不会尝试复用他。
+        ·两个不同类型的元素会产生出不同的树。如果元素由div变为p，React会销毁div及其子孙节点，并新建p及其子孙节点。
+        ·开发者可以通过 key prop来暗示哪些子元素在不同的渲染下能保持稳定。
+
+
+
+    diff的对比，diff在对比前会检测Child的类型，大致分为两类：
+        ·当newChild类型为object、number、string，代表同级只有一个节点
+        ·当newChild类型为Array，同级有多个节点
+
+        单节点：
+            https://react.iamkasong.com/img/diff.png  //（直接用卡神图片了。）
+            细节：
+            当child !== null且key相同且type不同时执行deleteRemainingChildren将child及其兄弟fiber都标记删除。
+            当child !== null且key不同时仅将child标记删除。
+
+        多节点：
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+// react ：
+//     虚拟dom就是以js形式对真实dom的描述
+//     fiber树就是虚拟dom；react 用fiber来实现Dom更新
+//     在更新时会用算法来对比要更新的地方，对比更新的过程就是Diff算法。
+//     对比更新完成后，才会进行渲染，以防止要更新的量大出现卡顿情况。
 
 
 
