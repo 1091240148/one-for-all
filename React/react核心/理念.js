@@ -1,7 +1,7 @@
 /*
  * @Author: zxh
  * @Date: 2021-06-01 15:15:50
- * @LastEditTime: 2021-06-11 17:33:18
+ * @LastEditTime: 2021-06-15 16:06:05
  * @LastEditors: zxh
  * @Description:
  */
@@ -145,6 +145,18 @@ react 16架构：
 
         单节点：
             https://react.iamkasong.com/img/diff.png  //（直接用卡神图片了。）
+
+
+
+            判断上次更新时候是否存在对应fiber节点，存在  ==是==>  判断节点是否可以复用     传送1
+                                                     ==否==>  生成一个新的fiber节点
+
+            接收传送1：判断节点是否可以复用： ==是==>   将上次fiber节点的副本作为本次节点更新的fiber节点返回
+                                           ==否==>   标记DOM需要被删除===>生成一个新的fiber节点
+
+
+
+
             细节：
             当child !== null且key相同且type不同时执行deleteRemainingChildren将child及其兄弟fiber都标记删除。
             当child !== null且key不同时仅将child标记删除。
